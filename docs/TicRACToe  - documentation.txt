@@ -1,0 +1,169 @@
+===============================================================
+Tic-RAC-Toe - Sommaire du travail 
+===============================================================
+Auteur : Julio Cesar Torres dos Santos 
+Enseignant : Walid Boulabiar
+Date : 03 mars 2017 
+===============================================================
+Reconnaissance des Acquis 
+Compétences évaluées: 
+	016S – Exploiter un langage de programmation structurée.
+	0170 – Organiser et exploiter des données.
+	016Z – Assurer la production et la gestion de documents.
+	016W– Appliquer une démarche algorithmique
+===============================================================
+
+-------------------------------
+1. Description sommaire du jeu 
+-------------------------------
+
+Le jeu de tic-tac-toe est un jeu défini sur une grille de 3x3, où deux joueurs jouent les coups séquentiellement, en enregistrant leur caractère dans une des cases de la grille. 
+
+Le jeu continue jusqu'à qu'une des conditions arrive:  
+
+    a. Un joueur est gagnant, en occupant trois carrés en ligne, en colonne ou en diagonale; 
+    b. un joueur arrête la partie; ou 
+    c. toutes les cases sont jouées (la partie est nulle). 
+
+Lorsqu'un joueur arrête la partie, l'état de la grille bien comme le joueur qui était en tour sont enregistrés dans un fichier de sortie appelé "partie.txt". 
+
+--------------------
+2. Mécanique du jeu
+--------------------
+
+Pour représenter la grille de 3x3, j'ai utilisé une matrice bidimensionnelle qui en langage C est composée de j colonnes de i lignes. 
+
+Alors, soit la matrice bidimensionnelle M, définie par M={eij | 0 < i < 3 et 0 < j < 3}. Nous avons la représentation de la matrice de jeu suivante: 
+
+ e00 | e01 | e02 
+-----|-----|-----
+ e10 | e11 | e12 
+-----|-----|-----
+ e20 | e21 | e22 
+
+L'affichage de la matrice en écran est faite avec des numéros de référence (exemple ci-bas), que le joueur doit saisir pour donner son coup. Lors d'un match, le joueur choisit son carré et informe le numéro de référence correspondant. Le programme fait la conversion du numéro de référence en coordonnée de la matrice de jeu. 
+
+ 0 | 1 | 2
+---|---|---
+ 3 | 4 | 5 
+---|---|---
+ 6 | 7 | 8
+
+Alors, lorsque le joueur saisit le numéro 5, le système convertit à la coordonné e12, et marque la matrice en position M[1][2]. 
+
+Si le joueur saisit une valeur invalide (c'est à dire, pas un numéro de 0 à 9), on lui informe que le coup est invalide et lui demande de réessayer. 
+
+Si le joueur choisit une position de la grille qui a déjà été prise, on lui informe qu'il a perdu son tour, et on passe le contrôle à l'autre joueur. 
+
+Les joueurs peuvent abandonner la partie en saisissant le numéro 9 (sortie). 
+
+
+----------------------------
+3. Évaluation de fin de jeu
+----------------------------
+
+Pour définir un vainqueur, on doit trouver le même joueur dans toutes les cases d'une ligne, d'une colonne ou d'une diagonale. 
+
+Pour gagner dans une ligne, il faut trouver le même joueur dans les cases ei0, ei1 et ei2. 
+
+Pour gagner dans une colonne, on doit trouver le joueur dans les cases e0j, e1j et e2j. 
+
+Pour vaincre dans une diagonale, il faut marquer les cases e00, e11 et e22 (diagonale principale) ou e02, e11 et e20 (diagonale inverse). 
+
+Le jeu peut, par contre, finir en match nul, dès que les joueurs aient joué toutes les 9 cases et aucune des séquences décrites ci-dessus soient être accomplies.  
+
+
+
+---------------------
+4. Compilation/Build
+---------------------
+
+Le programme possède les composantes suivantes: 
+
+ticRAcToe.c - Programme principal du jeu. 
+ticRACToe.h - Fichier d'entête. Déclare les prototypes et variables globales. 
+test_ticRACToe.c - Faire les tests de fonctions unitaires du programme. 
+ticRACToe.make - Fichier de build de l'application.
+
+La compilation a été faite avec le compilateur GNU C Compiler (gcc), en système d'exploitation Linux (Debian) et Macintosh (BSD). La compilation est faite avec la commande suivante:   
+
+	gcc ticRACToe.c -o ticRACToe 
+
+
+---------------------------
+5. Le fichier 'partie.txt'
+---------------------------
+
+Le fichier partie.txt contient l'information de l'état d'une partie lorsque elle a été interrompue par un joueur. Le format du fichier est le suivant: 
+
+    C;C;C;C;C;C;C;C;C/T
+
+où C est remplacé par X, O (qui représentent les joueurs) ou B (qui représente une case à blanc); T représente le joueur qui est au tour de jouer. 
+
+Un exemple de contenu du fichier est le suivant: 
+
+    O;X;B;X;O;X;B;B;B/O 
+
+qui reprendre le jeu avec la grille suivante, dans le tour du joueur O: 
+
+ O | X | 
+---|---|---
+ X | O | X 
+---|---|---
+   |   |
+
+
+-----------------
+6. Jeux d'essais 
+-----------------
+
+Le programme a été testé pour vérifier les situations de fin de jeu, où un joueur est gagnant ou la partie finie nulle. Les scénarios de test prévoient chaqu'une de ces conditions et les essaie, dans une procédure de tests automatisée, chargées et évaluées par le système. Un rapport est produit à la sortie du programme. 
+
+Pour jouer au cas de tests, il faut soumettre la commande suivante: 
+
+    ./ticRACToe t > rapport.txt
+
+Les résultats des évaluations, bien comme une image de l'état des grilles au moment de la condition, seront enregistrés dans le fichier "rapport.txt". 
+
+Voici la liste de conditions testées dans l'exécution du jeu d'essais: 
+
+01. BBBBBBBBB PARTIE INITIALE
+02. XXOOOXXMX PARTIE NULLE
+03. XXXOBBBBO X LIGNE 1
+04. OBOXXXBBB X LIGNE 2
+05. BBBOBOXXX X LIGNE 3 
+06. XBOBXBOBX X DIAGNALE
+07. OBXOXBXBO X DIAGONALE INV
+08. XOBXBBXBO X COLONNE 1
+09. OXBBXBBXO X COLONNE 2 
+10. BOXBOXBBX X COLONNE 3
+11. OOOBXBXBB O LIGNE 1
+12. BXBOOOBXB O LIGNE 2 
+13. BBXBBXOOO O LIGNE 3
+14. OBBBOBXXO O DIAGONALE
+15. XBOXOBOBB O DIAGONALE INV
+16. OXBOBXOBB O COLONNE 1 
+17. BOBXOBBOX O COLONNE 2
+18. BBOBXOBXO O COLONNE 3 
+19. OXBXOXBBB PARTIE EN COURS 
+
+Records d'essaie:
+B;B;B;B;B;B;B;B;B/X
+X;X;O;O;O;X;X;M;X/O
+X;X;X;O;B;B;B;B;O/X
+O;B;O;X;X;X;B;B;B/X
+B;B;B;O;B;O;X;X;X/X
+X;B;O;B;X;B;O;B;X/X
+O;B;X;O;X;B;X;B;O/X
+X;O;B;X;B;B;X;B;O/X
+O;X;B;B;X;B;B;X;O/X
+B;O;X;B;O;X;B;B;X/X
+O;O;O;B;X;B;X;B;B/O
+B;X;B;O;O;O;B;X;B/O
+B;B;X;B;B;X;O;O;O/O
+O;B;B;B;O;B;X;X;O/O
+X;B;O;X;O;B;O;B;B/O
+O;X;B;O;B;X;O;B;B/O
+B;O;B;X;O;B;B;O;X/O
+B;B;O;B;X;O;B;X;O/O
+O;X;B;X;O;X;B;B;B/O 
