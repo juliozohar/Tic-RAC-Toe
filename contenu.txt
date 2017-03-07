@@ -1,0 +1,10 @@
+/code
+	ticRACtoe.c  - Code source du programme  
+	ticRACToe.h  - Fichier d'entête 
+	partie.txt   - Fichier avec une partie enregistrée
+
+/docs
+	resultat.txt - Résultat d'un jeux d'essais fait avec les données de test. 
+	TicRACToe    - documentation.txt - document texte pages qui explique le fonctionnement du jeu et la façon dont j'ai construite l'application.
+	
+Tout le contenu est aussi disponible dans le repositoire github : http://www.github.com/juliozohar
