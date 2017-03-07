@@ -7,4 +7,6 @@
 	resultat.txt - Résultat d'un jeux d'essais fait avec les données de test. 
 	TicRACToe    - documentation.txt - document texte pages qui explique le fonctionnement du jeu et la façon dont j'ai construite l'application.
 	
-Tout le contenu est aussi disponible dans le repositoire github : http://www.github.com/juliozohar
+Tout le contenu est aussi disponible dans le repositoire github :
+
+      https://github.com/juliozohar/Tic-RAC-Toe
